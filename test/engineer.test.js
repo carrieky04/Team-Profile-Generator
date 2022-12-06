@@ -13,8 +13,8 @@ describe('Engineer class', () => {
 
 describe('getGitHub', () => {
     it('gets the name from getGitHub method', () => {
-        const engineer = new Engineer('Carrie','1234','carrie@email.com');
-        expect(engineer.getGitHub()).toBe('Cgithub');
+        const engineer = new Engineer('Carrie','1234','carrie@email.com','Cgithub');
+        expect(engineer.getGithub()).toBe('Cgithub');
     });
 });
 
