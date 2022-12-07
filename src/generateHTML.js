@@ -1,8 +1,10 @@
 const generateHTML = (teamMembers) => {
   console.log(teamMembers);
 
+  // Empty array to push employee cards into
   const html = [];
 
+  // manager html markup
   const generateManager = (manager) => {
     return `<div class="card" style="width: 18rem;">
         <div class="card-header">${manager.getRole()}</div>
@@ -17,6 +19,7 @@ const generateHTML = (teamMembers) => {
       
   }
   
+  // engineer html markup
   const generateEngineer = (engineer) => {
     return `<div class="card" style="width: 18rem;">
         <div class="card-header">${engineer.getRole()}</div>
@@ -31,6 +34,7 @@ const generateHTML = (teamMembers) => {
       
   }
   
+  // Intern html markup
   const generateIntern = (intern) => {
     return `<div class="card" style="width: 18rem;">
       <div class="card-header">${intern.getRole()}</div>
@@ -46,11 +50,15 @@ const generateHTML = (teamMembers) => {
   }
   
   
-
+// iterates through teamMembers array of objects
   for (let i = 0; i < teamMembers.length; i++) {
+    // assigns employee variable to each object in array
     const employee = teamMembers[i];
+
+    // assigns role variable to each getRole method for each employee
     const role = employee.getRole();
 
+    // creates a card specific to each employee role and pushes the card to empty html array
     if (role === "Manager") {
       const managerCard = generateManager(employee);
       html.push(managerCard)
@@ -64,10 +72,11 @@ const generateHTML = (teamMembers) => {
   }
 
 
-
+  // joins each object in html array
   return html.join('')
 }
 
+// exports generated html
 module.exports = (teamMembers) => {
   return `<!doctype html>
   <html lang="en">

@@ -85,7 +85,6 @@ const internQuestions = [
     }
 ]
 
-
 const askQuestions = () => {
     inquirer
         .prompt(managerQuestions) 
@@ -110,10 +109,9 @@ const nextEmployee = () => {
                     askIntern();
                     break;
                 case 'Done':
-                    // render team
                     writeHtml();
                     console.log('>>>>>> DONE <<<<<<')
-                    console.log (...teamMembers);
+                    
             }
         }) 
 }
