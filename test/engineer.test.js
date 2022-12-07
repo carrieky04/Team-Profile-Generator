@@ -11,8 +11,8 @@ describe('Engineer class', () => {
     });
 })
 
-describe('getGitHub', () => {
-    it('gets the name from getGitHub method', () => {
+describe('getGithub', () => {
+    it('gets the name from getGithub method', () => {
         const engineer = new Engineer('Carrie','1234','carrie@email.com','Cgithub');
         expect(engineer.getGithub()).toBe('Cgithub');
     });

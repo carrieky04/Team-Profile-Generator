@@ -1,8 +1,9 @@
-// const fs = require('fs');
+const fs = require('fs');
 const inquirer = require('inquirer');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
-const Intern = require('./lib/Intern')
+const Intern = require('./lib/Intern');
+const generateHTML = require('./src/generateHTML');
 
 const teamMembers = [];
 
@@ -103,38 +104,54 @@ const nextEmployee = () => {
         .then(answers => {
             switch (answers.employee) {
                 case 'Engineer':
-                    inquirer
-                        .prompt(engineerQuestions)
-                        .then((answers) => {
-                            console.log(answers);
-                            const engineer = new Engineer (answers.name, answers.id, answers.email, answers.github);
-                            teamMembers.push(engineer);
-                            limitEmployees();
-                        })
+                    askEngineer();
                     break;
                 case 'Intern':
-                    inquirer
-                        .prompt(internQuestions)
-                        .then((answers) => {
-                            console.log(answers);
-                            const intern = new Intern (answers.name, answers.id, answers.email, answers.school);
-                            teamMembers.push(intern);
-                            limitEmployees();
-                        })
+                    askIntern();
                     break;
-                default:
+                case 'Done':
                     // render team
+                    writeHtml();
+                    console.log('>>>>>> DONE <<<<<<')
+                    console.log (...teamMembers);
             }
         }) 
 }
 
-const limitEmployees = () => {
-    while (teamMembers < 6) {
-        nextEmployee();
-    }
+const askEngineer = () => {
+    inquirer
+        .prompt(engineerQuestions)
+        .then((answers) => {
+            const engineer = new Engineer (answers.name, answers.id, answers.email, answers.github);
+            console.log(engineer);
+            teamMembers.push(engineer);
+            nextEmployee();
+        })
 }
-    
+
+const askIntern = () => {
+    inquirer
+        .prompt(internQuestions)
+        .then((answers) => {
+            const intern = new Intern (answers.name, answers.id, answers.email, answers.school);
+            console.log(intern);
+            teamMembers.push(intern);
+            nextEmployee();
+         })
+}
+
+
+const writeHtml = () => {
+    const htmlPage = generateHTML(teamMembers);
+  
+    fs.writeFile('./dist/sampleHTML.html', htmlPage, (err) =>
+          err ? console.log(err) : console.log('Succesfully created sampleHTML.html')
+      );
+  }
+
+  
 askQuestions() ;
         
+
 
 
